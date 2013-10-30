@@ -12,7 +12,7 @@
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
- limitations under the License.
+ limitations under the License.
 -->
 <resources>
 
@@ -20,14 +20,12 @@
     <string name="capture_name">QR Code Capture</string>
     <string name="encoder_name">QR Code Encoder</string>
     <string name="decoder_name">QR Code Decoder</string>
-    
     <string name="contents_contact">Contact info</string>
     <string name="contents_email">Email address</string>
     <string name="contents_location">Geographic coordinates</string>
     <string name="contents_phone">Phone number</string>
     <string name="contents_sms">SMS address</string>
     <string name="contents_text">Plain text</string>
-    
     <string name="msg_default_contents">Contents</string>
     <string name="msg_default_format">Format</string>
     <string name="msg_default_meta">Metadata</string>
@@ -36,8 +34,13 @@
     <string name="msg_default_time">Time</string>
     <string name="msg_default_type">Type</string>
     <string name="msg_please_login">Please Signup or Login to view your profile</string>
-    
-    
+    <string name="msg_add_involve_successful">Add customer successfully</string>
+    <string name="msg_add_involve_failed">Fail to add customer</string>
+    <string name="msg_add_involve_already">Already add this customer</string>
+    <string name="msg_remove_involve_successful">Remove customer successfully</string>
+    <string name="msg_remove_involve_failed">Fail to remove customer</string>
+    <string name="msg_remove_involve_already">Already removed this customer</string>
+    <string name="msg_add_point_successful">Add customer point successfully</string>
     <string name="result_address_book">Found contact info</string>
     <string name="result_calendar">Found calendar event</string>
     <string name="result_email_address">Found email address</string>
@@ -49,24 +52,52 @@
     <string name="result_text">Found plain text</string>
     <string name="result_uri">Found URL</string>
     <string name="result_wifi">Found WLAN Configuration</string>
-    
     <string name="wifi_changing_network">Changing Network</string>
     <string name="wifi_ssid_label">Network Name</string>
     <string name="wifi_type_label">Type</string>
-    
     <string name="barcode_image">Barcode Image</string>
-    
-    
     <string name="hello_world">Hello world!</string>
-    
-    
     <string name="menu_settings">Settings</string>
     <string name="menu_scan">Scan</string>
     <string name="menu_generate">Generate</string>
+    <string name="menu_login">Login</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_add_point">Done</string>
+    <string name="txt_add_invol">Add Customer</string>
+    <string name="txt_remove_invol">Remove Customer</string>
+    <string name="txt_add_point_type">Type: sell product</string>
+    <string name="txt_add_point_detail">Detail</string>
+    <string name="txt_add_point">Point</string>
+    <string name="txt_add_point_detail_hint">Detail about your point</string>
+    <string name="login_login">LOGIN</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register_me">I don\'t have account. Register Me!</string>
+    <string name="btn_register">Register</string>
+    <string name="btn_log_me_in">Already registred. Login Me!</string>
+    <string name="btn_add_point">Add point for customer</string>
+    <string name="btn_scan_product">Scan the product</string>
+    <string name="reg_register">Register</string>
+    <string name="reg_full_name">Full Name</string>
+    <string name="reg_email">Email</string>
+    <string name="reg_password">Password</string>
+    <string name="reg_password_confirm">Confirm password</string>
     
+    <string name="url_base">http://10.0.2.2:80/gymviet-crm/public/</string>
+    <string name="url_login">auth-rest</string>
+    <string name="url_register">auth-rest</string>
+    <string name="url_get_customer_infor">shop-app/getuserinfo</string>
+    <string name="url_add_my_customer">shop-app/addmycustomer</string>
+    <string name="url_add_customer_point">shop-app/addcustomerpoint</string>
+    <string name="url_get_customer_history">shop-app/getcustomerhistory</string>
+    <string name="url_get_shop_info">customer-app/getshopinfo</string>
+    <string name="url_get_point_history">customer-app/getpointhistory</string>
     <string name="title_activity_main">Home</string>
-    
-    
-    
+    <string name="title_activity_login">Log me in</string>
+    <string name="title_activity_register">Register me</string>
+    <string name="title_activity_shop_info">ShopInfoActivity</string>
+    <string name="title_activity_customer_info">CustomerInfoActivity</string>
+    <string name="title_activity_add_customer_point">AddCustomerPointActivity</string>
 
 </resources>
