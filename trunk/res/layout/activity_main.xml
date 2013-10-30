@@ -37,13 +37,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/txtEmail" >
-        
+
         <TextView
-        android:id="@+id/txtLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:id="@+id/txtLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 
     <ImageView
@@ -54,5 +54,38 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/barcode_image"
         android:scaleType="center" />
+
+    <!-- Link to Login Screen -->
+
+    <Button
+        android:id="@+id/btnMainLogin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dip"
+        android:background="@null"
+        android:text="@string/btn_log_me_in"
+        android:textColor="#21dbd4"
+        android:textStyle="bold" />
+
+    <!-- Link to Registration Screen -->
+
+    <Button
+        android:id="@+id/btnMainRegister"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dip"
+        android:background="@null"
+        android:layout_below="@+id/btnMainLogin"
+        android:text="@string/btn_register_me"
+        android:textColor="#21dbd4"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Test" />
 
 </RelativeLayout>
