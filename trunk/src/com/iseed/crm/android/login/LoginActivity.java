@@ -75,6 +75,8 @@ public class LoginActivity extends Activity {
 							// user successfully logged in
 							// Store user details in SQLite Database
 //							DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+						    
+						    Log.v("Login",json.toString());
 							JSONObject json_user = json.getJSONObject("user");
 							
 							// Clear all previous data in database

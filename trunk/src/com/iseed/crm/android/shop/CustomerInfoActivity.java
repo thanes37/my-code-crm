@@ -4,12 +4,17 @@ import com.iseed.crm.android.R;
 import com.iseed.crm.android.common.ConnectServer;
 import com.iseed.crm.android.common.Constant;
 import com.iseed.crm.android.common.Customer;
+import com.iseed.crm.android.login.LoginActivity;
+import com.iseed.crm.android.qrcode.EncoderActivity;
+import com.jwetherell.quick_response_code.CaptureActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -70,6 +75,22 @@ public class CustomerInfoActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_customer_info, menu);
         return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                
+                return true;
+            case R.id.menu_add_point:
+                Intent intent = new Intent(this, AddCustomerPointActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
     
     private class GetCustomerInfoTask extends AsyncTask<String, Void, Customer> {

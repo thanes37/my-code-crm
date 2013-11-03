@@ -2,26 +2,31 @@
 package com.iseed.crm.android.shop;
 
 import com.iseed.crm.android.R;
+import com.iseed.crm.android.ScanActivity;
 import com.iseed.crm.android.common.ConnectServer;
 import com.iseed.crm.android.common.Constant;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class AddCustomerPointActivity extends Activity {
+public class AddCustomerPointActivity extends Activity implements OnClickListener{
     
     public static final String TAG = "Add Point";
     
     public EditText edtAddPointDetail;
     public EditText edtAddPoint;
+    public Button btnScanProduct;
     
     private String uid;
     private ProgressBar progressAddPoint;
@@ -45,6 +50,8 @@ public class AddCustomerPointActivity extends Activity {
         
         edtAddPointDetail = (EditText) findViewById(R.id.edtAddPointDetail);
         edtAddPoint = (EditText) findViewById(R.id.edtAddPoint);
+        btnScanProduct = (Button) findViewById(R.id.btnScanProduct);
+        btnScanProduct.setOnClickListener(this);
     }
 
     @Override
@@ -71,6 +78,34 @@ public class AddCustomerPointActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case Constant.SCAN_FOR_PRODUCT_UID:
+                if (data == null) {return;}
+                String productUid = data.getStringExtra(Constant.SCAN_STRING_RESULT);
+                // TODO: Continue with product ID
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.v(TAG, "here");
+        switch (v.getId()){
+            case R.id.btnScanProduct:
+                Log.v(TAG, "here");
+                Intent intent=new Intent(this, ScanActivity.class);
+                startActivityForResult(intent, Constant.SCAN_FOR_PRODUCT_UID);
+                break;
+            default:
+                break;
+        }
+        
     }
     
     /**
@@ -107,5 +142,6 @@ public class AddCustomerPointActivity extends Activity {
     private String validate(String detail, String point){
         return null;
     }
+
     
 }
