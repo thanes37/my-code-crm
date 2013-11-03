@@ -22,10 +22,13 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iseed.crm.android.R;
+import com.iseed.crm.android.adapter.CustomerInvolve;
+import com.iseed.crm.android.adapter.PointParent;
 
 import android.content.Context;
 import android.util.Log;
@@ -213,6 +216,114 @@ public class ConnectServer {
         }
         return resultCode;
     }
+    
+    public List<PointParent> getPointHistory(){
+    	List<PointParent> parents = new ArrayList<PointParent>();
+        String url = baseUrl+ context.getString(R.string.url_get_point_history);
+        // Building post parameters
+        // key and value pair
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+        
+        nameValuePair.add(new BasicNameValuePair("token", "qwertyu"));
+        nameValuePair.add(new BasicNameValuePair("page_number", "0"));
+
+        // Parsing JSON object
+        try {
+            JSONObject jsonObject = getJSONPost(url, nameValuePair);
+            String status = jsonObject.getString("status");
+            if (status.equals("OK")) {
+                JSONArray history = jsonObject.getJSONArray("history");
+                for (int i = 0; i< history.length(); i++){
+                	JSONObject shopJson = history.getJSONObject(i);
+                	//Create parent class object
+                	PointParent parent = new PointParent();
+        			
+        			parent.shopUid = shopJson.getString("shop_uid");
+        			parent.shopName = shopJson.getString("shop_name");
+        			parent.involvementId = Integer.parseInt(shopJson.getString("involvement_id"));
+        			parent.pointSum = Integer.parseInt(shopJson.getString("point_sum"));
+        			
+        			parent.children = new ArrayList<PointTrack>();
+        			
+        			JSONArray pointTrack = shopJson.getJSONArray("point_track");
+        			for (int j = 0; j<pointTrack.length(); j++){
+        				JSONObject track = pointTrack.getJSONObject(i);
+        				PointTrack child = new PointTrack();
+        				
+        				child.id = Integer.parseInt(track.getString("id"));
+        				child.detail = track.getString("detail");
+        				child.type = track.getString("type");
+        				child.point = Integer.parseInt(track.getString("point"));
+        				child.timestamp = track.getString("timestamp");
+        				
+        				parent.children.add(child);
+        			}
+        			
+        			parents.add(parent);
+                }
+
+                resultCode = Constant.SUCCESS;
+            } else if (status.equals("RequestLogin")) {
+                resultCode = Constant.REQUEST_LOGIN;
+            } else if (status.equals("CustomerAlreadyInvolved")) {
+                resultCode = Constant.CUSTOMER_INVOLVED;
+            } else { // Error
+                resultCode = Constant.ERROR;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            resultCode = Constant.ERROR;
+        }
+        return parents;
+    }
+    
+    public List<CustomerInvolve> getCustomerList(){
+    	List<CustomerInvolve> customerList = new ArrayList<CustomerInvolve>();
+        String url = baseUrl+ context.getString(R.string.url_get_customer_history);
+        // Building post parameters
+        // key and value pair
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+        
+        nameValuePair.add(new BasicNameValuePair("token", "qwertyu"));
+        nameValuePair.add(new BasicNameValuePair("page_number", "0"));
+
+        // Parsing JSON object
+        try {
+            JSONObject jsonObject = getJSONPost(url, nameValuePair);
+            String status = jsonObject.getString("status");
+            if (status.equals("OK")) {
+                JSONArray customers = jsonObject.getJSONArray("customer");
+                for (int i = 0; i< customers.length(); i++){
+                	JSONObject customerJson = customers.getJSONObject(i);
+                	
+                	CustomerInvolve customer = new CustomerInvolve();
+                	customer.customer.uid = customerJson.getString("uid");
+                	customer.customer.displayName = customerJson.getString("customer_name");
+                	customer.customer.photoLink = customerJson.getString("photo_link");
+                	
+                	JSONObject involvement = customerJson.getJSONObject("involvement");
+                	customer.involvement.id = Integer.parseInt(involvement.getString("id"));
+                	customer.involvement.type = involvement.getString("type");
+                	customer.involvement.pointSum = Integer.parseInt(involvement.getString("point"));
+                	customer.involvement.state = involvement.getString("state");
+                	customer.involvement.timestamp = involvement.getString("timestamp");
+        			
+        			customerList.add(customer);
+                }
+                resultCode = Constant.SUCCESS;
+            } else if (status.equals("RequestLogin")) {
+                resultCode = Constant.REQUEST_LOGIN;
+            } else if (status.equals("CustomerAlreadyInvolved")) {
+                resultCode = Constant.CUSTOMER_INVOLVED;
+            } else { // Error
+                resultCode = Constant.ERROR;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            resultCode = Constant.ERROR;
+        }
+        return customerList;
+    }
 
     /**
      * @param url
@@ -220,6 +331,8 @@ public class ConnectServer {
      * @return JSON object of the server response
      */
     private JSONObject getJSONPost(String url, List<NameValuePair> nameValuePair) {
+    	Log.v("URL", url);
+    	
         JSONObject jsonResult = null;
         String resultString = "";
         try {

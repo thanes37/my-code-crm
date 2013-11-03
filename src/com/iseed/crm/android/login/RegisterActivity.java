@@ -78,11 +78,15 @@ public class RegisterActivity extends Activity {
 							DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 							JSONObject json_user = json.getJSONObject("user");
 							
+							user.updateUser(json_user.getString(KEY_NAME), 
+                                    json_user.getString(KEY_EMAIL), 
+                                    json.getString(KEY_UID), 
+                                    json_user.getString(KEY_CREATED_AT));
 							user.setLoginState(true);
 							
 							// Clear all previous data in database
-							userFunction.logoutUser(getApplicationContext());
-							db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));						
+//							userFunction.logoutUser(getApplicationContext());
+//							db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));						
 							// Launch Dashboard Screen
 							Intent dashboard = new Intent(getApplicationContext(), MainActivity.class);
 							// Close all views before launching Dashboard

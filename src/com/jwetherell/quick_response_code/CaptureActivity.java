@@ -21,13 +21,11 @@ import java.util.Map;
 import java.util.Set;
 
 import com.iseed.crm.android.R;
-import com.iseed.crm.android.customer.ShopInfoActivity;
 import com.google.zxing.Result;
 import com.google.zxing.ResultMetadataType;
 import com.jwetherell.quick_response_code.result.ResultHandler;
 import com.jwetherell.quick_response_code.result.ResultHandlerFactory;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -97,17 +95,11 @@ public class CaptureActivity extends DecoderActivity {
 
     @Override
     public void handleDecode(Result rawResult, Bitmap barcode) {
-        
-        // TODO: handle here
-        if (true){
-            Intent intent = new Intent(this, ShopInfoActivity.class);
-            startActivity(intent);
-        } else {
-            drawResultPoints(barcode, rawResult);
-    
-            ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
-            handleDecodeInternally(rawResult, resultHandler, barcode);
-        }
+
+        drawResultPoints(barcode, rawResult);
+
+        ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
+        handleDecodeInternally(rawResult, resultHandler, barcode);
     }
         
     
