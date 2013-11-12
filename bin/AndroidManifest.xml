@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="17" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -76,6 +76,27 @@
         <activity
             android:name="com.iseed.crm.android.shop.AddCustomerPointActivity"
             android:label="@string/title_activity_add_customer_point" >
+        </activity>
+        <activity
+            android:name="com.iseed.crm.android.ScanActivity"
+            android:clearTaskOnLaunch="true"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_scan"
+            android:screenOrientation="landscape"
+            android:stateNotNeeded="true"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.iseed.crm.android.customer.PointHistoryActivity"
+            android:label="@string/title_activity_point_history" >
+        </activity>
+        <activity
+            android:name="com.iseed.crm.android.shop.CustomerListActivity"
+            android:label="@string/title_activity_customer_list" >
+        </activity>
+        <activity
+            android:name="com.iseed.crm.android.customer.CustomerMainActivity"
+            android:label="@string/title_activity_customer_main" >
         </activity>
     </application>
 

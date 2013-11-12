@@ -1,7 +1,12 @@
-package com.iseed.crm.android;
+package com.iseed.crm.android.shop;
 
 import java.util.List;
 
+import com.iseed.crm.android.R;
+import com.iseed.crm.android.R.id;
+import com.iseed.crm.android.R.layout;
+import com.iseed.crm.android.R.menu;
+import com.iseed.crm.android.R.string;
 import com.iseed.crm.android.adapter.CustomerArrayAdapter;
 import com.iseed.crm.android.adapter.CustomerInvolve;
 import com.iseed.crm.android.adapter.PointListAdapter;
@@ -37,7 +42,7 @@ public class CustomerListActivity extends ListActivity {
 		// XXX Fix this
 		progressBar = (ProgressBar) findViewById(R.id.prgbPointHistory);
 
-		new GetCustomerListTask().execute();
+		new GetCustomerListTask().execute();;
 	}
 
 	@Override
@@ -79,7 +84,7 @@ public class CustomerListActivity extends ListActivity {
         
         protected Integer doInBackground(Void... uid) {
         	ConnectServer connect = new ConnectServer(CustomerListActivity.this);
-        	customerList = connect.getCustomerList();
+        	customerList = connect.getCustomerList(0);
             return connect.resultCode;
         }
 

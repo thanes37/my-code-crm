@@ -5,20 +5,14 @@
  * */
 package com.iseed.crm.android.login;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.iseed.crm.android.MainActivity;
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.common.Constant;
-import com.iseed.crm.android.login.library.DatabaseHandler;
-import com.iseed.crm.android.login.library.UserFunctions;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,17 +24,6 @@ public class LoginActivity extends Activity {
 	EditText inputEmail;
 	EditText inputPassword;
 	TextView loginErrorMsg;
-	
-	private User user;
-
-	// JSON Response node names
-	private static String KEY_SUCCESS = "success";
-	private static String KEY_ERROR = "error";
-	private static String KEY_ERROR_MSG = "error_msg";
-	private static String KEY_UID = "uid";
-	private static String KEY_NAME = "name";
-	private static String KEY_EMAIL = "email";
-	private static String KEY_CREATED_AT = "created_at";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,59 +36,33 @@ public class LoginActivity extends Activity {
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
 		loginErrorMsg = (TextView) findViewById(R.id.login_error);
-		
-		user = new User(this);
 
 		// Login button Click Event
 		btnLogin.setOnClickListener(new View.OnClickListener() {
-
 			public void onClick(View view) {
 				String email = inputEmail.getText().toString();
-				String password = inputPassword.getText().toString();
-				UserFunctions userFunction = new UserFunctions();
-				Log.d("Button", "Login");
-				JSONObject json = userFunction.loginUser(email, password);
-
-				// check for login response
-				try {
-					if (json.getString(KEY_SUCCESS) != null) {
-						loginErrorMsg.setText("");
-						String res = json.getString(KEY_SUCCESS); 
-						if(Integer.parseInt(res) == 1){
-							// user successfully logged in
-							// Store user details in SQLite Database
-//							DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-						    
-						    Log.v("Login",json.toString());
-							JSONObject json_user = json.getJSONObject("user");
-							
-							// Clear all previous data in database
-//							userFunction.logoutUser(getApplicationContext());
-//							db.addUser(json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json.getString(KEY_UID), json_user.getString(KEY_CREATED_AT));
-							
-							user.updateUser(json_user.getString(KEY_NAME), 
-							        json_user.getString(KEY_EMAIL), 
-							        json.getString(KEY_UID), 
-							        json_user.getString(KEY_CREATED_AT));
-							user.setLoginState(true);
-							
-							// Launch Dashboard Screen
-							Intent dashboard = new Intent(getApplicationContext(), MainActivity.class);
-							
-							// Close all views before launching Dashboard
-							dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-							startActivity(dashboard);
-							
-							// Close Login Screen
-							finish();
-						}else{
-							// Error in login
-							loginErrorMsg.setText("Incorrect username/password");
-						}
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+                String password = inputPassword.getText().toString();
+                UserFunctions userFunction = new UserFunctions(LoginActivity.this);
+                int status = userFunction.login(email, password);
+                if (status == Constant.SUCCESS){
+                	if (userFunction.getRole().equals("customer")){
+	                	// Launch Home Screen
+	                    Intent dashboard = new Intent(getApplicationContext(), MainActivity.class);
+	                    
+	                    // Close all views before launching Dashboard
+	                    dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	                    startActivity(dashboard);
+	                     
+	                    // Close Login Screen
+	                    finish();
+                	} else {
+                		// TODO : SHOP
+                	}
+                } else if (status == Constant.INCORRECT){
+                	loginErrorMsg.setText(getApplicationContext().getString(R.string.msg_login_incorrect));
+                } else {
+                	loginErrorMsg.setText(getApplicationContext().getString(R.string.msg_login_error));
+                }
 			}
 		});
 

@@ -6,6 +6,10 @@ public class Constant {
     public static final String UID = "uid";
     public static final String SCAN_STRING_RESULT = "result";
     
+    public static final String SEED_CRYPTO = "SEED";
+    public static final String QRCODE_UID = "UID";
+    public static final String QRCODE_PID = "PID";
+    
     public static final int TIME_OUT_CONNECTION = 10000;
     public static final int TIME_OUT_SOCKET = 10000;
     
@@ -13,6 +17,8 @@ public class Constant {
     public static final int REQUEST_LOGIN = 1;
     public static final int ERROR = 2;
     public static final int CUSTOMER_INVOLVED = 3;
+    public static final int INCORRECT = 4;
+    public static final int EMAIL_EXISTED = 5;
     
     public static final int SCAN_FOR_PRODUCT_UID = 101;
     public static final int SCAN_FOR_CUSTOMER_UID = 102;
