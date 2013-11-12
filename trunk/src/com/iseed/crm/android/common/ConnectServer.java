@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.adapter.CustomerInvolve;
 import com.iseed.crm.android.adapter.PointParent;
+import com.iseed.crm.android.login.UserFunctions;
 
 import android.content.Context;
 import android.util.Log;
@@ -47,11 +48,13 @@ public class ConnectServer {
     public Shop getShopInfo(String uid){
         Shop shop = new Shop();
         String url = baseUrl+ context.getString(R.string.url_get_shop_info);
+        UserFunctions user = new UserFunctions(context);
+        String token = user.getToken();
         // Building post parameters
         // key and value pair
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-        nameValuePair.add(new BasicNameValuePair("token", "qwertyu"));
-        nameValuePair.add(new BasicNameValuePair("uid", "qwertyu"));
+        nameValuePair.add(new BasicNameValuePair("token", token));
+        nameValuePair.add(new BasicNameValuePair("uid", uid));
 
 
         // Parsing JSON object
@@ -86,11 +89,13 @@ public class ConnectServer {
     public Customer getCustomerInfo(String uid){
         Customer customer = new Customer();
         String url = baseUrl+ context.getString(R.string.url_get_customer_infor);
+        UserFunctions user = new UserFunctions(context);
+        String token = user.getToken();
         // Building post parameters
         // key and value pair
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-        nameValuePair.add(new BasicNameValuePair("token", "qwertyu"));
-        nameValuePair.add(new BasicNameValuePair("uid", "qwertyu"));
+        nameValuePair.add(new BasicNameValuePair("token", token));
+        nameValuePair.add(new BasicNameValuePair("uid", uid));
 
 
         // Parsing JSON object
@@ -123,11 +128,13 @@ public class ConnectServer {
     
     public int addInvolvement(String uid){
         String url = baseUrl+ context.getString(R.string.url_add_my_customer);
+        UserFunctions user = new UserFunctions(context);
+        String token = user.getToken();
         // Building post parameters
         // key and value pair
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-        nameValuePair.add(new BasicNameValuePair("token", "qwertyu"));
-        nameValuePair.add(new BasicNameValuePair("uid", "qwertyu"));
+        nameValuePair.add(new BasicNameValuePair("token", token));
+        nameValuePair.add(new BasicNameValuePair("uid", uid));
 
         // Parsing JSON object
         try {
@@ -155,11 +162,13 @@ public class ConnectServer {
         
         // TODO : code for remove
         String url = baseUrl+ context.getString(R.string.url_add_my_customer);
+        UserFunctions user = new UserFunctions(context);
+        String token = user.getToken();
         // Building post parameters
         // key and value pair
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-        nameValuePair.add(new BasicNameValuePair("token", "qwertyu"));
-        nameValuePair.add(new BasicNameValuePair("uid", "qwertyu"));
+        nameValuePair.add(new BasicNameValuePair("token", token));
+        nameValuePair.add(new BasicNameValuePair("uid", uid));
 
         // Parsing JSON object
         try {
@@ -185,11 +194,13 @@ public class ConnectServer {
     
     public int addPoint(String uid, String type, String detail, int point){
         String url = baseUrl+ context.getString(R.string.url_add_customer_point);
+        UserFunctions user = new UserFunctions(context);
+        String token = user.getToken();
         // Building post parameters
         // key and value pair
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
         
-        nameValuePair.add(new BasicNameValuePair("token", "qwertyu"));
+        nameValuePair.add(new BasicNameValuePair("token", token));
         nameValuePair.add(new BasicNameValuePair("uid", uid));
         nameValuePair.add(new BasicNameValuePair("type", type));
         nameValuePair.add(new BasicNameValuePair("detail", detail));
@@ -217,15 +228,17 @@ public class ConnectServer {
         return resultCode;
     }
     
-    public List<PointParent> getPointHistory(){
+    public List<PointParent> getPointHistory(int page_number){
     	List<PointParent> parents = new ArrayList<PointParent>();
         String url = baseUrl+ context.getString(R.string.url_get_point_history);
+        UserFunctions user = new UserFunctions(context);
+        String token = user.getToken();
         // Building post parameters
         // key and value pair
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
         
-        nameValuePair.add(new BasicNameValuePair("token", "qwertyu"));
-        nameValuePair.add(new BasicNameValuePair("page_number", "0"));
+        nameValuePair.add(new BasicNameValuePair("token", token));
+        nameValuePair.add(new BasicNameValuePair("page_number", Integer.toString(page_number)));
 
         // Parsing JSON object
         try {
@@ -277,15 +290,16 @@ public class ConnectServer {
         return parents;
     }
     
-    public List<CustomerInvolve> getCustomerList(){
+    public List<CustomerInvolve> getCustomerList(int page_number){
     	List<CustomerInvolve> customerList = new ArrayList<CustomerInvolve>();
         String url = baseUrl+ context.getString(R.string.url_get_customer_history);
+        UserFunctions user = new UserFunctions(context);
+        String token = user.getToken();
         // Building post parameters
         // key and value pair
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-        
-        nameValuePair.add(new BasicNameValuePair("token", "qwertyu"));
-        nameValuePair.add(new BasicNameValuePair("page_number", "0"));
+        nameValuePair.add(new BasicNameValuePair("token", token));
+        nameValuePair.add(new BasicNameValuePair("page_number", Integer.toString(page_number)));
 
         // Parsing JSON object
         try {
@@ -323,6 +337,30 @@ public class ConnectServer {
             resultCode = Constant.ERROR;
         }
         return customerList;
+    }
+    
+    public JSONObject login(String email, String password){
+    	String url = baseUrl+ context.getString(R.string.url_login);
+    	// key and value pair
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+        
+        nameValuePair.add(new BasicNameValuePair("email", email));
+        nameValuePair.add(new BasicNameValuePair("password", password));
+    	
+    	return getJSONPost(url, nameValuePair);
+    }
+    
+    public JSONObject register(String name, String email, String password, String role){
+    	String url = baseUrl+ context.getString(R.string.url_register);
+    	// key and value pair
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(4);
+        
+        nameValuePair.add(new BasicNameValuePair("email", email));
+        nameValuePair.add(new BasicNameValuePair("password", password));
+        nameValuePair.add(new BasicNameValuePair("name", email));
+        nameValuePair.add(new BasicNameValuePair("role", password));
+    	
+    	return getJSONPost(url, nameValuePair);
     }
 
     /**

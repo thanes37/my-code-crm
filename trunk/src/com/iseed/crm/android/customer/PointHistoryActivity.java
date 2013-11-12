@@ -35,7 +35,6 @@ public class PointHistoryActivity extends ExpandableListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_point_history);
 		progressBar = (ProgressBar) findViewById(R.id.prgbPointHistory);
-		// Set ExpandableListView values
 
 		getExpandableListView().setGroupIndicator(null);
 		getExpandableListView().setDividerHeight(1);
@@ -74,7 +73,7 @@ public class PointHistoryActivity extends ExpandableListActivity {
         
         protected Integer doInBackground(Void... uid) {
         	ConnectServer connect = new ConnectServer(PointHistoryActivity.this);
-        	parents = connect.getPointHistory();
+        	parents = connect.getPointHistory(0);
             return connect.resultCode;
         }
 

@@ -2,12 +2,12 @@ package com.iseed.crm.android;
 
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.common.Constant;
-import com.iseed.crm.android.customer.PointHistoryActivity;
+import com.iseed.crm.android.customer.CustomerMainActivity;
 import com.iseed.crm.android.login.LoginActivity;
 import com.iseed.crm.android.login.RegisterActivity;
-import com.iseed.crm.android.login.User;
+import com.iseed.crm.android.login.UserFunctions;
 import com.iseed.crm.android.qrcode.EncoderActivity;
-import com.iseed.crm.android.shop.CustomerInfoActivity;
+import com.iseed.crm.android.shop.CustomerListActivity;
 import com.jwetherell.quick_response_code.CaptureActivity;
 
 import android.os.Bundle;
@@ -26,7 +26,7 @@ public class MainActivity extends Activity implements OnClickListener{
     
     public Context context;
     private MainModel mModel;
-    private User user;
+    private UserFunctions user;
     
     public static TextView txtUserName;
     public static TextView txtIdentifier;
@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements OnClickListener{
         
         context = this;
         mModel = new MainModel(context);
-        user = new User(context);
+        user = new UserFunctions(context);
         isLogin = user.isLogin();
         
         txtUserName = (TextView) findViewById(R.id.txtUserName);
@@ -154,7 +154,7 @@ public class MainActivity extends Activity implements OnClickListener{
                 break;
             // XXX 
             case R.id.btnTest:
-                intent = new Intent(this, CustomerListActivity.class);
+                intent = new Intent(this, CustomerMainActivity.class);
                 intent.putExtra(Constant.UID, "qwertyui");
                 startActivity(intent);
                 break;

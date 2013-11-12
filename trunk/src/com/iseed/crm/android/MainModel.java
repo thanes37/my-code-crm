@@ -3,7 +3,7 @@
  */
 package com.iseed.crm.android;
 
-import com.iseed.crm.android.login.User;
+import com.iseed.crm.android.login.UserFunctions;
 import com.iseed.crm.android.qrcode.EncoderActivity;
 
 import android.content.Context;
@@ -19,11 +19,11 @@ import android.view.WindowManager;
 public class MainModel {
     
     private Context context;
-    private User user;
+    private UserFunctions user;
     
     public MainModel(Context ctx){
         context = ctx;
-        user = new User(context);
+        user = new UserFunctions(context);
     }
     
     @SuppressWarnings("deprecation")
@@ -37,6 +37,6 @@ public class MainModel {
         smallerDimension = width < height ? width : height;
         smallerDimension = smallerDimension * 7 / 8;
         
-        return EncoderActivity.getEncode(user.getEmail(), smallerDimension);
+        return EncoderActivity.getEncode(user.getEncryptedUid(), smallerDimension);
     }
 }
