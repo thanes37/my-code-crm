@@ -61,6 +61,10 @@ public class ShopMainActivity extends FragmentActivity implements
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		
+		// To avoid reloading the history tab.
+		// TODO: but it will load the history even if user not visit.
+		mViewPager.setOffscreenPageLimit(2);
 
 		// When swiping between different sections, select the corresponding
 		// tab. We can also use ActionBar.Tab#select() to do this if we have
