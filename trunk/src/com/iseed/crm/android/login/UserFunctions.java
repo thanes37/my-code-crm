@@ -92,6 +92,8 @@ public class UserFunctions {
     			
     		} else if (status.equals("EmailExisted")){
     			return Constant.EMAIL_EXISTED;
+    		} else if (status.equals("WrongEmail")){
+    			return Constant.WRONG_EMAIL;
     		} else {
     			// Error
     			return Constant.ERROR;
@@ -162,7 +164,13 @@ public class UserFunctions {
     	String encrypted = "UID";
     	try {
     		String clearUid = getUid();
-    		clearUid = Constant.QRCODE_UID+clearUid;
+    		String roleUID;
+    		if (getRole().equals(Constant.ROLE_CUSTOMER)){
+    			roleUID = Constant.QRCODE_UID_CUSTOMER;
+    		} else {
+    			roleUID = Constant.QRCODE_UID_SHOP;
+    		}
+    		clearUid = roleUID+clearUid;
     		Log.v("User", "Encrype String" + clearUid);
     		encrypted = SimpleCrypto.encrypt(Constant.SEED_CRYPTO, clearUid);
     	} catch (Exception e){

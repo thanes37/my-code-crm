@@ -8,6 +8,7 @@ import com.iseed.crm.android.login.RegisterActivity;
 import com.iseed.crm.android.login.UserFunctions;
 import com.iseed.crm.android.qrcode.EncoderActivity;
 import com.iseed.crm.android.shop.CustomerListActivity;
+import com.iseed.crm.android.shop.ShopMainActivity;
 import com.jwetherell.quick_response_code.CaptureActivity;
 
 import android.os.Bundle;
@@ -154,7 +155,7 @@ public class MainActivity extends Activity implements OnClickListener{
                 break;
             // XXX 
             case R.id.btnTest:
-                intent = new Intent(this, CustomerMainActivity.class);
+                intent = new Intent(this, ShopMainActivity.class);
                 intent.putExtra(Constant.UID, "qwertyui");
                 startActivity(intent);
                 break;

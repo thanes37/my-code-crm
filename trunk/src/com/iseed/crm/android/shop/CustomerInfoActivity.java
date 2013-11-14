@@ -5,6 +5,7 @@ import com.iseed.crm.android.common.ConnectServer;
 import com.iseed.crm.android.common.Constant;
 import com.iseed.crm.android.common.Customer;
 import com.iseed.crm.android.login.LoginActivity;
+import com.iseed.crm.android.login.UserFunctions;
 import com.iseed.crm.android.qrcode.EncoderActivity;
 import com.jwetherell.quick_response_code.CaptureActivity;
 
@@ -68,6 +69,8 @@ public class CustomerInfoActivity extends Activity {
         if (uid != null){
             new GetCustomerInfoTask().execute(uid);
         }
+        updateRelationPan();
+        
     }
 
     @Override
@@ -186,6 +189,14 @@ public class CustomerInfoActivity extends Activity {
             Log.v(TAG, "Remove involve");
             new RemoveInvolvementTask().execute(uid);
         }
+    }
+    
+    private void updateRelationPan(){
+    	UserFunctions user = new UserFunctions(this);
+    	String role = user.getRole();
+    	if (role.equals(Constant.ROLE_CUSTOMER)){
+    		tgbAddInvolve.setVisibility(View.GONE);
+    	}
     }
 
 }

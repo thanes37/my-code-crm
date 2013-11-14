@@ -13,16 +13,18 @@ import com.iseed.crm.android.customer.CustomerMainActivity.DummySectionFragment;
 import com.iseed.crm.android.fragment.CustomerAdsFragment;
 import com.iseed.crm.android.fragment.CustomerHistoryFragment;
 import com.iseed.crm.android.fragment.CustomerHomeFragment;
+import com.iseed.crm.android.fragment.ShopCustomerListFragment;
+import com.iseed.crm.android.fragment.ShopToolsFragment;
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class ShopPagerAdapter extends FragmentPagerAdapter {
 	
 	private Context context;
 
-	public SectionsPagerAdapter(Context ctx, FragmentManager fm) {		
+	public ShopPagerAdapter(Context ctx, FragmentManager fm) {		
 		super(fm);
 		context = ctx;
 	}
@@ -40,9 +42,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 			homeFragment.setArguments(args0);
 			return homeFragment;
 		case 1:
-			return new CustomerAdsFragment();
+			return new ShopCustomerListFragment();
 		case 2:
-			return new CustomerHistoryFragment();
+			return new ShopToolsFragment();
 		}
 		return homeFragment;
 	}
@@ -58,11 +60,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 		Locale l = Locale.getDefault();
 		switch (position) {
 		case 0:
-			return context.getString(R.string.title_section1).toUpperCase(l);
+			return context.getString(R.string.title_shop_section1).toUpperCase(l);
 		case 1:
-			return context.getString(R.string.title_section2).toUpperCase(l);
+			return context.getString(R.string.title_shop_section2).toUpperCase(l);
 		case 2:
-			return context.getString(R.string.title_section3).toUpperCase(l);
+			return context.getString(R.string.title_shop_section3).toUpperCase(l);
 		}
 		return null;
 	}
