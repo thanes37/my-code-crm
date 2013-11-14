@@ -74,13 +74,18 @@
             		android:textColor="#e30000"
             		android:padding="10dip"
             		android:textStyle="bold"/>
+        
+        <ProgressBar
+            android:id="@+id/prgbRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
 
 		<!--  Login Button -->        
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
             android:text="@string/btn_register" />
 
         <!--  Link to Login Screen -->
@@ -88,7 +93,7 @@
             android:id="@+id/btnLinkToLoginScreen"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
+            android:layout_marginTop="10dip"
             android:background="@null"
             android:text="@string/btn_log_me_in"
             android:textColor="#21dbd4"

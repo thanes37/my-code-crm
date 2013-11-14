@@ -31,6 +31,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:icon="@drawable/icon"
             android:label="@string/capture_name"
+            android:noHistory="true"
             android:screenOrientation="landscape"
             android:stateNotNeeded="true"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -82,6 +83,7 @@
             android:clearTaskOnLaunch="true"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_scan"
+            android:noHistory="true"
             android:screenOrientation="landscape"
             android:stateNotNeeded="true"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
@@ -97,6 +99,10 @@
         <activity
             android:name="com.iseed.crm.android.customer.CustomerMainActivity"
             android:label="@string/title_activity_customer_main" >
+        </activity>
+        <activity
+            android:name="com.iseed.crm.android.shop.ShopMainActivity"
+            android:label="@string/title_activity_shop_main" >
         </activity>
     </application>
 

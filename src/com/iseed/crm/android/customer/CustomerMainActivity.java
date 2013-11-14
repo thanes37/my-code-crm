@@ -1,8 +1,12 @@
 package com.iseed.crm.android.customer;
 
 import com.iseed.crm.android.R;
-import com.iseed.crm.android.adapter.SectionsPagerAdapter;
-import com.jwetherell.quick_response_code.CaptureActivity;
+import com.iseed.crm.android.ScanActivity;
+import com.iseed.crm.android.adapter.CustomerPagerAdapter;
+import com.iseed.crm.android.common.Constant;
+import com.iseed.crm.android.login.LoginActivity;
+import com.iseed.crm.android.login.UserFunctions;
+import com.iseed.crm.android.qrcode.EncoderActivity;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -19,7 +23,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class CustomerMainActivity extends FragmentActivity implements
-		ActionBar.TabListener {
+ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -29,7 +33,7 @@ public class CustomerMainActivity extends FragmentActivity implements
 	 * intensive, it may be best to switch to a
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
-	SectionsPagerAdapter mSectionsPagerAdapter;
+	CustomerPagerAdapter mSectionsPagerAdapter;
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
@@ -47,14 +51,14 @@ public class CustomerMainActivity extends FragmentActivity implements
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(
+		mSectionsPagerAdapter = new CustomerPagerAdapter(
 				this,
 				getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-		
+
 		// To avoid reloading the history tab.
 		// TODO: but it will load the history even if user not visit.
 		mViewPager.setOffscreenPageLimit(2);
@@ -63,12 +67,12 @@ public class CustomerMainActivity extends FragmentActivity implements
 		// tab. We can also use ActionBar.Tab#select() to do this if we have
 		// a reference to the Tab.
 		mViewPager
-				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-					@Override
-					public void onPageSelected(int position) {
-						actionBar.setSelectedNavigationItem(position);
-					}
-				});
+		.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				actionBar.setSelectedNavigationItem(position);
+			}
+		});
 
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
@@ -86,24 +90,55 @@ public class CustomerMainActivity extends FragmentActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.customer_main, menu);
+		MenuItem loginMenuItem = menu.findItem(R.id.menu_login);
+		UserFunctions user = new UserFunctions(this);
+        if (user.isLogin()){
+            loginMenuItem.setTitle(R.string.menu_logout);
+        } else {
+            loginMenuItem.setTitle(R.string.menu_login);
+        }
 		return true;
 	}
-	
+
 	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                
-                return true;
-            case R.id.action_scan:
-                Intent intent = new Intent(this, CaptureActivity.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+
+			return true;
+		case R.id.action_scan:
+			Intent intent = new Intent(this, ScanActivity.class);
+			startActivity(intent);
+			return true;
+		case R.id.menu_generate:
+            Intent encodeIntent = new Intent(this, EncoderActivity.class);
+            startActivity(encodeIntent);
+            return true;
+        case R.id.menu_login:
+        	UserFunctions user = new UserFunctions(this);
+            if (user.isLogin()){
+                user.setLoginState(false);
+            } else {
+            }
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish();
+            return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data){
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if(requestCode==Constant.SCAN_FOR__UID)
+		{
+		}
+
+	}
 
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
@@ -123,7 +158,7 @@ public class CustomerMainActivity extends FragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 	}
 
-	
+
 
 	/**
 	 * A dummy fragment representing a section of the app, but that simply
