@@ -14,10 +14,12 @@ import android.widget.Button;
 
 import com.iseed.crm.android.common.Constant;
 import com.iseed.crm.android.customer.CustomerMainActivity;
+import com.iseed.crm.android.gymclub.GymMainActivity;
 import com.iseed.crm.android.login.LoginActivity;
 import com.iseed.crm.android.login.RegisterActivity;
 import com.iseed.crm.android.login.UserFunctions;
 import com.iseed.crm.android.qrcode.EncoderActivity;
+import com.iseed.crm.android.shop.CustomerInfoActivity;
 import com.iseed.crm.android.shop.ShopMainActivity;
 import com.jwetherell.quick_response_code.CaptureActivity;
 
@@ -55,20 +57,13 @@ public class MainActivity extends Activity implements OnClickListener{
             public void run() {
             	new PrefetchData().execute();
             }
-        }, 1000);
+        }, 0);
 	}
 	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main, menu);
-        MenuItem loginMenuItem = menu.findItem(R.id.menu_login);
-        UserFunctions user = new UserFunctions(MainActivity.this);
-        if (user.isLogin()){
-            loginMenuItem.setTitle(R.string.menu_logout);
-        } else {
-            loginMenuItem.setTitle(R.string.menu_login);
-        }
         return true;
     }
     
@@ -76,9 +71,6 @@ public class MainActivity extends Activity implements OnClickListener{
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.menu_settings:
-                
-                return true;
             case R.id.menu_scan:
                 Intent intent = new Intent(this, CaptureActivity.class);
                 startActivity(intent);
@@ -106,7 +98,7 @@ public class MainActivity extends Activity implements OnClickListener{
                 break;
             // XXX : Button for testing only
             case R.id.btnTest:
-                intent = new Intent(this, ShopMainActivity.class);
+                intent = new Intent(this, CustomerInfoActivity.class);
                 intent.putExtra(Constant.UID, "qwertyui");
                 startActivity(intent);
                 break;
@@ -141,6 +133,8 @@ public class MainActivity extends Activity implements OnClickListener{
 				role = user.getRole();
 				if (role.equals(Constant.ROLE_SHOP)){
 					i = new Intent(MainActivity.this, ShopMainActivity.class);
+				} else if (role.equals(Constant.ROLE_CLUB)){
+					i = new Intent(MainActivity.this, GymMainActivity.class);
 				} else {
 					i = new Intent(MainActivity.this, CustomerMainActivity.class);
 				}

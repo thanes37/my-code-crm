@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true" />
-    
+
     <LinearLayout
         android:id="@+id/lnLayoutAddPoint"
         android:layout_width="fill_parent"
@@ -28,7 +28,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:text="@string/txt_add_point_type" />
+
+            <Button
+                android:id="@+id/btnScanProduct"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btn_scan_product" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,15 +79,5 @@
                 android:inputType="number" />
         </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnScanProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lnLayoutAddPoint"
-        android:text="@string/btn_scan_product" />
-
-    
 
 </RelativeLayout>

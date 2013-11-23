@@ -6,14 +6,18 @@ import com.iseed.crm.android.common.ConnectServer;
 import com.iseed.crm.android.common.Constant;
 import com.iseed.crm.android.common.Shop;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ShopInfoActivity extends Activity {
     
@@ -56,7 +60,14 @@ public class ShopInfoActivity extends Activity {
         txtReputation = (TextView) findViewById(R.id.txtReputation);
         txtDescription = (TextView) findViewById(R.id.txtDescription);
         
-        new GetShopInfoTask().execute(uid);
+        if (isOnline()){
+        	if (uid != null) new GetShopInfoTask().execute(uid);
+        } else {
+        	Toast.makeText(
+					this, 
+					R.string.msg_no_network_function, 
+					Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -75,14 +86,35 @@ public class ShopInfoActivity extends Activity {
         protected void onPostExecute(Shop result) {
             mProgress.setVisibility(View.GONE);
             
-            txtShopName.setText(shop.displayName);
-            txtAddress.setText(shop.address);
-            txtPhoneNumber.setText(shop.phoneNumber);
-            txtContactEmail.setText(shop.contactEmail);
-            txtWebsite.setText(shop.website);
-            txtReputation.setText(Integer.toString(shop.reputation));
-            txtDescription.setText(shop.description);
+            if (connect.resultCode == Constant.SUCCESS){
+	            txtShopName.setText(shop.displayName);
+	            txtAddress.setText(shop.address);
+	            txtPhoneNumber.setText(shop.phoneNumber);
+	            txtContactEmail.setText(shop.contactEmail);
+	            txtWebsite.setText(shop.website);
+	            txtReputation.setText(Integer.toString(shop.reputation));
+	            txtDescription.setText(shop.description);
+            } else if (connect.resultCode == Constant.REQUEST_LOGIN){
+            	Toast.makeText(
+    					ShopInfoActivity.this, 
+    					R.string.msg_err_request_login, 
+    					Toast.LENGTH_LONG).show();
+            } else {
+            	Toast.makeText(
+    					ShopInfoActivity.this, 
+    					R.string.msg_err_not_found, 
+    					Toast.LENGTH_LONG).show();
+            }
         }
     }
 
+    public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
 }

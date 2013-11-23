@@ -38,6 +38,15 @@
     <string name="msg_register_name_invalid">Enter your name</string>
     <string name="msg_register_password_not_match">Password not match</string>
     <string name="msg_register_password_invalid">Password too short</string>
+    <string name="msg_no_network_common">Please turn on network connection to use app function</string>
+    <string name="msg_no_network_function">Please turn on network to use this function</string>
+    <string name="msg_err_request_login">Please re-login to do this action</string>
+    <string name="msg_err_not_found">Your request not found in our server</string>
+    <string name="msg_err_error">Error when request</string>
+    <string name="msg_err_need_involved_customer">This customer not involved yet</string>
+    <string name="msg_err_need_involved_shop">This shop not involved yet</string>
+    <string name="msg_checkin_valid">Membership is valid</string>
+    <string name="msg_checkin_outdate">Membership outdated</string>
     <string name="result_address_book">Found contact info</string>
     <string name="result_calendar">Found calendar event</string>
     <string name="result_email_address">Found email address</string>
@@ -75,30 +84,36 @@
     <string name="btn_log_me_in">Already registered. Login Me!</string>
     <string name="btn_add_point">Add point for customer</string>
     <string name="btn_scan_product">Scan the product</string>
+    <string name="btn_to_add_point">+ Points</string>
+    <string name="btn_add_membership">Add membership</string>
+    <string name="btn_renew_membership">Renew</string>
+    <string name="btn_checkin">Checkin</string>
     <string name="reg_register">Register</string>
     <string name="reg_full_name">Full Name</string>
     <string name="reg_email">Email</string>
     <string name="reg_password">Password</string>
     <string name="reg_password_confirm">Confirm password</string>
-<!--     <string name="url_base">http://192.168.11.3:80/</string> -->
+    <!-- <string name="url_base">http://192.168.202.1:80/</string> -->
+<!--     <string name="url_base">http://192.168.11.9:80/</string> -->
     <string name="url_base">http://10.0.2.2:80/</string>
     <string name="url_login">customer-app/login</string>
     <string name="url_register">customer-app/register</string>
-    <string name="url_get_customer_infor">shop-app/getuserinfo</string>
-    <string name="url_add_my_customer">shop-app/addmycustomer</string>
-    <string name="url_add_customer_point">shop-app/addcustomerpoint</string>
-    <string name="url_get_customer_history">shop-app/getcustomerhistory</string>
+    <string name="url_get_customer_infor">customer-app/getuserinfo</string>
+    <string name="url_add_my_customer">customer-app/addmycustomer</string>
+    <string name="url_add_customer_point">customer-app/addcustomerpoint</string>
+    <string name="url_get_customer_history">customer-app/getcustomerhistory</string>
     <string name="url_get_shop_info">customer-app/getshopinfo</string>
     <string name="url_get_point_history">customer-app/getpointhistory</string>
-    
+    <string name="url_get_involvement_customer">customer-app/getcustomerinvolve</string>
+    <string name="url_get_involvement_shop">customer-app/getshopinvolve</string>
+    <string name="url_get_shop_customer_points">customer-app/getshopcustomerpoints</string>
     <string name="shop_tool_contact">Contact</string>
     <string name="shop_tool_report">Report</string>
     <string name="shop_tool_product">Product</string>
     <string name="shop_tool_sale_order">Sale Order</string>
     <string name="shop_tool_purchase_order">Purchase Order</string>
     <string name="shop_tool_financial">Finance</string>
-    
-    <string name="title_activity_main">Home</string>
+    <string name="title_activity_main">GymViet Care</string>
     <string name="title_activity_login">Log me in</string>
     <string name="title_activity_register">Register me</string>
     <string name="title_activity_shop_info">ShopInfoActivity</string>
@@ -116,5 +131,11 @@
     <string name="title_shop_section2">Customer</string>
     <string name="title_shop_section3">Tools</string>
     <string name="title_activity_shop_main">ShopMainActivity</string>
+    <string name="title_activity_gymclub_main">GymclubMainActivity</string>
+    <string name="title_gym_section1">Checkin</string>
+    <string name="title_gym_section2">Customer</string>
+    <string name="title_gym_section3">Tools</string>
+    <string name="title_activity_scan_for_result">ScanForResultActivity</string>
+    <string name="title_activity_shop_customer_points">ShopCustomerPointsActivity</string>
 
 </resources>

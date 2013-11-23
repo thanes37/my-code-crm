@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.sax.RootElement;
@@ -44,8 +46,15 @@ public class CustomerHistoryFragment extends Fragment{
         progressBar = (ProgressBar) rootView.findViewById(R.id.prgbPointHistory);
         expListView = (ExpandableListView) rootView.findViewById(R.id.expCustomerHistory);
         
-        new GetPointHistoryTask().execute();
-        
+        if (isOnline()){
+        	new GetPointHistoryTask().execute();
+        } else {
+        	// XXX
+//        	Toast.makeText(
+//					context, 
+//					R.string.msg_no_network_function, 
+//					Toast.LENGTH_LONG).show();
+        }
         return rootView;
     }
 	
@@ -133,4 +142,14 @@ public class CustomerHistoryFragment extends Fragment{
             }
         }
     }
+	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
 }

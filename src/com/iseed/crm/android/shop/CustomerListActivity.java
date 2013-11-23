@@ -41,8 +41,16 @@ public class CustomerListActivity extends ListActivity {
 		
 		// XXX Fix this
 		progressBar = (ProgressBar) findViewById(R.id.prgbPointHistory);
+		progressBar.setVisibility(View.INVISIBLE);
 
-		new GetCustomerListTask().execute();;
+		if (ConnectServer.isOnline(this)){
+			new GetCustomerListTask().execute();;
+		} else {
+			Toast.makeText(
+					this, 
+					R.string.msg_no_network_function, 
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 	@Override

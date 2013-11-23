@@ -5,13 +5,17 @@ import java.util.Locale;
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.ScanActivity;
 import com.iseed.crm.android.adapter.ShopPagerAdapter;
+import com.iseed.crm.android.common.ConnectServer;
 import com.iseed.crm.android.login.LoginActivity;
 import com.iseed.crm.android.login.UserFunctions;
 import com.iseed.crm.android.qrcode.EncoderActivity;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -24,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ShopMainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -86,6 +91,13 @@ public class ShopMainActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
+		}
+		
+		if (!ConnectServer.isOnline(this)){
+			Toast.makeText(
+					this, 
+					R.string.msg_no_network_common, 
+					Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -150,32 +162,4 @@ public class ShopMainActivity extends FragmentActivity implements
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
-
-	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
-	 */
-	public static class DummySectionFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public DummySectionFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_shop_main_dummy,
-					container, false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
-			return rootView;
-		}
-	}
-
 }
