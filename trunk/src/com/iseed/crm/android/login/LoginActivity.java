@@ -10,11 +10,15 @@ import com.iseed.crm.android.MainActivity;
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.common.Constant;
 import com.iseed.crm.android.customer.CustomerMainActivity;
+import com.iseed.crm.android.gymclub.GymMainActivity;
 import com.iseed.crm.android.shop.CustomerInfoActivity;
 import com.iseed.crm.android.shop.ShopMainActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,9 +58,16 @@ public class LoginActivity extends Activity {
 		// Login button Click Event
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				String email = inputEmail.getText().toString();
-                String password = inputPassword.getText().toString();
-                new LoginTask().execute(email, password);
+				if (isOnline()){
+					String email = inputEmail.getText().toString();
+	                String password = inputPassword.getText().toString();
+	                new LoginTask().execute(email, password);
+				} else {
+					Toast.makeText(
+							LoginActivity.this, 
+							R.string.msg_no_network_common, 
+							Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 
@@ -111,7 +122,17 @@ public class LoginActivity extends Activity {
                      
                     // Close Login Screen
                     finish();
-            	} 
+            	} else if (userFunction.getRole().equals(Constant.ROLE_CLUB)){
+            		// Launch Home Screen
+                    Intent dashboard = new Intent(getApplicationContext(), GymMainActivity.class);
+                    
+                    // Close all views before launching Dashboard
+                    dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(dashboard);
+                     
+                    // Close Login Screen
+                    finish();
+            	}
             } else if (status == Constant.INCORRECT){
             	loginErrorMsg.setText(getApplicationContext().getString(R.string.msg_login_incorrect));
             } else {
@@ -120,4 +141,14 @@ public class LoginActivity extends Activity {
             
         }
     }
+	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
 }

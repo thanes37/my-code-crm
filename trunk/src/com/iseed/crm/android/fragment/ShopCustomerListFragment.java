@@ -7,8 +7,12 @@ import com.iseed.crm.android.adapter.CustomerArrayAdapter;
 import com.iseed.crm.android.adapter.CustomerInvolve;
 import com.iseed.crm.android.common.ConnectServer;
 import com.iseed.crm.android.common.Constant;
+import com.iseed.crm.android.shop.CustomerInfoActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -42,16 +46,30 @@ public class ShopCustomerListFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_shop_customer_list, container, false);
         
         progressBar = (ProgressBar) rootView.findViewById(R.id.prgbCustomerList);
+        progressBar.setVisibility(View.INVISIBLE);
         
-        new GetCustomerListTask().execute();
-        
+        if (isOnline()){
+        	new GetCustomerListTask().execute();
+        } else {
+        	// XXX
+//        	Toast.makeText(
+//					context, 
+//					R.string.msg_no_network_function, 
+//					Toast.LENGTH_LONG).show();
+        }
         return rootView;
     }
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		// do something with the data
-		Log.v(TAG, "onClick");
+
+		// Open customer info activity
+		super.onListItemClick(l, v, position, id);
+		CustomerInvolve customer = (CustomerInvolve) l.getItemAtPosition(position);
+		Intent i = new Intent(context, CustomerInfoActivity.class);
+		String uid = customer.customer.uid;
+		i.putExtra(Constant.UID,uid);
+		startActivity(i);
 	}
 
 	private void loadHosts(final List<CustomerInvolve> newList)
@@ -96,6 +114,16 @@ public class ShopCustomerListFragment extends ListFragment {
 				toast.show();
 			}
 		}
+	}
+	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
 	}
 
 }

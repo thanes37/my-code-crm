@@ -32,11 +32,19 @@ import com.iseed.crm.android.adapter.PointParent;
 import com.iseed.crm.android.login.UserFunctions;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
+
+/*
+ * TODO: return json object may contain null value. Filter it for each value.
+ * Using json.isNull();
+ */
 
 public class ConnectServer {
 
-    private Context context;
+    private static final String TAG = "ConnectServer";
+	private Context context;
     public String baseUrl;
     public int resultCode;
 
@@ -44,6 +52,16 @@ public class ConnectServer {
         context = ctx;
         baseUrl = context.getString(R.string.url_base);
     }
+    
+    public static boolean isOnline(Context ctx) {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
 
     public Shop getShopInfo(String uid){
         Shop shop = new Shop();
@@ -107,9 +125,18 @@ public class ConnectServer {
                 customer.uid = jsonCustomer.getString("uid");
                 customer.displayName = jsonCustomer.getString("name");
                 customer.photoLink = jsonCustomer.getString("photo_link");
-                customer.gender = jsonCustomer.getString("gender");
+                if (!jsonCustomer.isNull("gender")){
+                	customer.gender = jsonCustomer.getString("gender");
+                } else {
+                	customer.gender = "";
+                }
                 customer.profileState = jsonCustomer.getString("profile_state");
-                customer.location = jsonCustomer.getString("location");
+                if (!jsonCustomer.isNull("location")){
+                	customer.location = jsonCustomer.getString("location");
+                } else {
+                	customer.location = "";
+                }
+                
                 customer.reputation = jsonCustomer.getInt("reputation");
                 customer.memberSince = jsonCustomer.getString("member_since");
 
@@ -124,6 +151,86 @@ public class ConnectServer {
             resultCode = Constant.ERROR;
         }
         return customer;
+    }
+    
+    public Involvement getInvolvementCustomer(String customerUid){
+        Involvement involvement = new Involvement();
+        String url = baseUrl+ context.getString(R.string.url_get_involvement_customer);
+        UserFunctions user = new UserFunctions(context);
+        String token = user.getToken();
+        // Building post parameters
+        // key and value pair
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+        nameValuePair.add(new BasicNameValuePair("token", token));
+        nameValuePair.add(new BasicNameValuePair("uid", customerUid));
+
+
+        // Parsing JSON object
+        try {
+            JSONObject jsonObject = getJSONPost(url, nameValuePair);
+            String status = jsonObject.getString("status");
+            if (status.equals("OK")) {
+                JSONObject jsonCustomer = jsonObject.getJSONObject("involvement");
+                involvement.id = jsonCustomer.getInt("id");
+                involvement.type = jsonCustomer.getString("type");
+                involvement.pointSum = jsonCustomer.getInt("point");
+                involvement.state = jsonCustomer.getString("state");
+                involvement.timestamp = jsonCustomer.getString("timestamp");
+
+                resultCode = Constant.SUCCESS;
+            } else if (status.equals("RequestLogin")) {
+                resultCode = Constant.REQUEST_LOGIN;
+            } else if (status.equals("NeedInvolved")){
+            	involvement = null;
+            	resultCode = Constant.NEED_INVOLVED;
+            } else {
+                resultCode = Constant.ERROR;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            resultCode = Constant.ERROR;
+        }
+        return involvement;
+    }
+    
+    public Involvement getInvolvementShop(String shopUid){
+        Involvement involvement = new Involvement();
+        String url = baseUrl+ context.getString(R.string.url_get_involvement_shop);
+        UserFunctions user = new UserFunctions(context);
+        String token = user.getToken();
+        // Building post parameters
+        // key and value pair
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+        nameValuePair.add(new BasicNameValuePair("token", token));
+        nameValuePair.add(new BasicNameValuePair("uid", shopUid));
+
+
+        // Parsing JSON object
+        try {
+            JSONObject jsonObject = getJSONPost(url, nameValuePair);
+            String status = jsonObject.getString("status");
+            if (status.equals("OK")) {
+                JSONObject jsonCustomer = jsonObject.getJSONObject("involvement");
+                involvement.id = jsonCustomer.getInt("id");
+                involvement.type = jsonCustomer.getString("type");
+                involvement.pointSum = jsonCustomer.getInt("point");
+                involvement.state = jsonCustomer.getString("state");
+                involvement.timestamp = jsonCustomer.getString("timestamp");
+
+                resultCode = Constant.SUCCESS;
+            } else if (status.equals("RequestLogin")) {
+                resultCode = Constant.REQUEST_LOGIN;
+            } else if (status.equals("NeedInvolved")){
+            	involvement = null;
+            	resultCode = Constant.NEED_INVOLVED;
+            } else {
+                resultCode = Constant.ERROR;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            resultCode = Constant.ERROR;
+        }
+        return involvement;
     }
     
     public int addInvolvement(String uid){
@@ -141,8 +248,7 @@ public class ConnectServer {
             JSONObject jsonObject = getJSONPost(url, nameValuePair);
             String status = jsonObject.getString("status");
             if (status.equals("OK")) {
-                
-
+            	
                 resultCode = Constant.SUCCESS;
             } else if (status.equals("RequestLogin")) {
                 resultCode = Constant.REQUEST_LOGIN;
@@ -228,6 +334,55 @@ public class ConnectServer {
         return resultCode;
     }
     
+    public List<PointTrack> getShopCustomerPoints(int involvementId){
+    	List<PointTrack> trackList = new ArrayList<PointTrack>();
+        String url = baseUrl+ context.getString(R.string.url_get_shop_customer_points);
+        UserFunctions user = new UserFunctions(context);
+        String token = user.getToken();
+        // Building post parameters
+        // key and value pair
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+        
+        nameValuePair.add(new BasicNameValuePair("token", token));
+        nameValuePair.add(new BasicNameValuePair("involvement_id", Integer.toString(involvementId)));
+
+        // Parsing JSON object
+        try {
+            JSONObject jsonObject = getJSONPost(url, nameValuePair);
+            String status = jsonObject.getString("status");
+            if (status.equals("OK")) {
+                JSONArray history = jsonObject.getJSONArray("history");
+                for (int i = 0; i< history.length(); i++){
+                	JSONObject jsonTrack = history.getJSONObject(i);
+                	//Create parent class object
+                	PointTrack track = new PointTrack();
+                	track.type = jsonTrack.getString("type");
+        			track.id = Integer.parseInt(jsonTrack.getString("id"));
+        			if (!jsonTrack.isNull("detail")){
+        				track.detail = jsonTrack.getString("detail");
+        			} else {
+        				track.detail = "";
+        			}
+        			track.timestamp = jsonTrack.getString("timestamp");
+        			track.point = Integer.parseInt(jsonTrack.getString("point"));
+        			
+        			trackList.add(track);
+                }
+                resultCode = Constant.SUCCESS;
+            } else if (status.equals("RequestLogin")) {
+                resultCode = Constant.REQUEST_LOGIN;
+            } else if (status.equals("NotFound")) {
+                resultCode = Constant.NOT_FOUND;
+            } else { // Error
+                resultCode = Constant.ERROR;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            resultCode = Constant.ERROR;
+        }
+        return trackList;
+    }
+    
     public List<PointParent> getPointHistory(int page_number){
     	List<PointParent> parents = new ArrayList<PointParent>();
         String url = baseUrl+ context.getString(R.string.url_get_point_history);
@@ -260,7 +415,7 @@ public class ConnectServer {
         			
         			JSONArray pointTrack = shopJson.getJSONArray("point_track");
         			for (int j = 0; j<pointTrack.length(); j++){
-        				JSONObject track = pointTrack.getJSONObject(i);
+        				JSONObject track = pointTrack.getJSONObject(j);
         				PointTrack child = new PointTrack();
         				
         				child.id = Integer.parseInt(track.getString("id"));
@@ -357,8 +512,8 @@ public class ConnectServer {
         
         nameValuePair.add(new BasicNameValuePair("email", email));
         nameValuePair.add(new BasicNameValuePair("password", password));
-        nameValuePair.add(new BasicNameValuePair("name", email));
-        nameValuePair.add(new BasicNameValuePair("role", password));
+        nameValuePair.add(new BasicNameValuePair("name", name));
+        nameValuePair.add(new BasicNameValuePair("role", role));
     	
     	return getJSONPost(url, nameValuePair);
     }

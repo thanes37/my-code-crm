@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.iseed.crm.android.R;
-import com.iseed.crm.android.customer.CustomerMainActivity.DummySectionFragment;
 import com.iseed.crm.android.fragment.CustomerAdsFragment;
 import com.iseed.crm.android.fragment.CustomerHistoryFragment;
 import com.iseed.crm.android.fragment.CustomerHomeFragment;

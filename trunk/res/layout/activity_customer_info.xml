@@ -13,38 +13,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/imgvCustomerIcon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_default_customer" />
+        <include layout="@layout/customer_info"/>
 
-        <TextView
-            android:id="@+id/txtCustomerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <!-- Layout for Add customer involvement function -->
 
-        <TextView
-            android:id="@+id/txtGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gender" />
-
-        <TextView
-            android:id="@+id/txtReputationCustomer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reputation" />
-
-        <TextView
-            android:id="@+id/txtLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Location" />
-
-		<!--Layout for Add customer involvement function -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
@@ -53,18 +25,27 @@
                 android:id="@+id/prgbAddInvolvement"
                 style="?android:attr/progressBarStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
 
             <ToggleButton
                 android:id="@+id/tgbAddInvolvement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textOn="@string/txt_remove_invol"
-    			android:textOff="@string/txt_add_invol"
-    			android:onClick="onToggleClicked"/>
-
+                android:onClick="onToggleClicked"
+                android:textOff="@string/txt_add_invol"
+                android:textOn="@string/txt_remove_invol" />
         </LinearLayout>
-        
+
+        <!-- Layout for adding point if customer involved in this shop: just a button -->
+
+        <Button
+            android:id="@+id/btnToAddPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/btn_to_add_point" />
+
     </LinearLayout>
 
     <ProgressBar
@@ -73,6 +54,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-    
 
 </RelativeLayout>

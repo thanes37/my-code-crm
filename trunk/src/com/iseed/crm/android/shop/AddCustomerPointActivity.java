@@ -5,10 +5,14 @@ import com.iseed.crm.android.R;
 import com.iseed.crm.android.ScanActivity;
 import com.iseed.crm.android.common.ConnectServer;
 import com.iseed.crm.android.common.Constant;
+import com.iseed.crm.android.login.LoginActivity;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -52,6 +56,7 @@ public class AddCustomerPointActivity extends Activity implements OnClickListene
         edtAddPoint = (EditText) findViewById(R.id.edtAddPoint);
         btnScanProduct = (Button) findViewById(R.id.btnScanProduct);
         btnScanProduct.setOnClickListener(this);
+        
     }
 
     @Override
@@ -66,14 +71,21 @@ public class AddCustomerPointActivity extends Activity implements OnClickListene
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_add_point:
-                String type = "sell";
-                String detail = edtAddPointDetail.getText().toString();
-                String point = edtAddPoint.getText().toString();
-                if (validate(detail, point)==null){
-                    new AddPointTask().execute(uid, type, detail, point);
-                } else {
-                    // TODO
-                }
+            	if(ConnectServer.isOnline(this)){
+	                String type = "sell";
+	                String detail = edtAddPointDetail.getText().toString();
+	                String point = edtAddPoint.getText().toString();
+	                if (validate(detail, point)==null){
+	                    new AddPointTask().execute(uid, type, detail, point);
+	                } else {
+	                    // TODO
+	                }
+            	} else {
+            		Toast.makeText(
+							this, 
+							R.string.msg_no_network_function, 
+							Toast.LENGTH_LONG).show();
+            	}
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -85,7 +97,8 @@ public class AddCustomerPointActivity extends Activity implements OnClickListene
         switch (requestCode){
             case Constant.SCAN_FOR_PRODUCT_UID:
                 if (data == null) {return;}
-                String productUid = data.getStringExtra(Constant.SCAN_STRING_RESULT);
+                String productUid = data.getStringExtra(Constant.UID);
+                Log.v(TAG, "ProductUID = "+ productUid);
                 // TODO: Continue with product ID
                 break;
             default:
@@ -118,7 +131,6 @@ public class AddCustomerPointActivity extends Activity implements OnClickListene
         }
         
         protected Integer doInBackground(String... params) {
-            
             Integer result = (Integer) connect.addPoint(params[0], params[1],params[2],Integer.valueOf(params[3]));
             return result;
         }
@@ -132,16 +144,16 @@ public class AddCustomerPointActivity extends Activity implements OnClickListene
                 CharSequence text = AddCustomerPointActivity.this.getResources().getString(R.string.msg_add_point_successful);
                 Toast toast = Toast.makeText(AddCustomerPointActivity.this, text, Toast.LENGTH_SHORT);
                 toast.show();
+                finish();
             } else {
                 // TODO
             }
-            
         }
     }
     
     private String validate(String detail, String point){
+    	// TODO
+    	
         return null;
     }
-
-    
 }

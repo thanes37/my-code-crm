@@ -5,16 +5,17 @@
  * */
 package com.iseed.crm.android.login;
 
-import java.util.List;
-
-import com.iseed.crm.android.MainActivity;
 import com.iseed.crm.android.R;
+import com.iseed.crm.android.common.ConnectServer;
 import com.iseed.crm.android.common.Constant;
 import com.iseed.crm.android.customer.CustomerMainActivity;
 import com.iseed.crm.android.shop.ShopMainActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RegisterActivity extends Activity {
 	Button btnRegister;
@@ -54,17 +56,27 @@ public class RegisterActivity extends Activity {
 		// Register Button Click event
 		btnRegister.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View view) {
-				String name = edtName.getText().toString();
-				String email = edtEmail.getText().toString();
-                String password = edtPass.getText().toString();
-                String error = validate();
-                if (error.length()!= 0){
-                	// Show error message
-                	txtErrorMessage.setText(error);
-                } else {
-                	// Input fine, let register
-                	new RegisterTask().execute(name, email, password);
-                }
+				
+				if (ConnectServer.isOnline(RegisterActivity.this)){
+					String name = edtName.getText().toString();
+					String email = edtEmail.getText().toString();
+	                String password = edtPass.getText().toString();
+	                String error = validate();
+	                if (error.length()!= 0){
+	                	// Show error message
+	                	txtErrorMessage.setText(error);
+	                } else {
+	                	// Input fine, let register
+	                	new RegisterTask().execute(name, email, password);
+	                }
+				} else {
+					Toast.makeText(
+							RegisterActivity.this, 
+							R.string.msg_no_network_common, 
+							Toast.LENGTH_LONG).show();
+				}
+				
+				
 			}
 		});
 

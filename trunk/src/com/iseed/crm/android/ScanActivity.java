@@ -10,6 +10,7 @@ import com.jwetherell.quick_response_code.CaptureActivity;
 import com.jwetherell.quick_response_code.result.ResultHandler;
 import com.jwetherell.quick_response_code.result.ResultHandlerFactory;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -37,6 +38,9 @@ public class ScanActivity extends CaptureActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+        
+        // TODO : block result when scanning just for product result only. Ignore others.
+        
         if (decrypted != null){
         	String code = decrypted.substring(0, 4);
         	String uid = decrypted.substring(4);
@@ -52,19 +56,15 @@ public class ScanActivity extends CaptureActivity {
         		startActivity(i);
         		finish();
         	} else if(code.equals(Constant.QRCODE_UID_PRODUCT)){
-        		// XXX
-        		Intent i = new Intent(getApplicationContext(), CustomerInfoActivity.class);
+        		Intent i = new Intent();
         		i.putExtra(Constant.UID,uid);
-        		startActivity(i);
+        		setResult(Constant.SCAN_FOR_PRODUCT_UID, i);
         		finish();
+        	} else {
+        		super.handleDecode(rawResult, barcode);
         	}
         } else {
-        	// XXX
-        	Intent i = new Intent(getApplicationContext(), CustomerInfoActivity.class);
-    		i.putExtra(Constant.UID,"1");
-    		startActivity(i);
-    		finish();
-//        	super.handleDecode(rawResult, barcode);
+        	super.handleDecode(rawResult, barcode);
         }
     }
 
