@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.iseed.crm.android"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="Alpha 1.0" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -17,6 +17,7 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    
     <!-- Allow to connect with internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -121,6 +122,10 @@
         <activity
             android:name="com.iseed.crm.android.ShopCustomerPointsActivity"
             android:label="@string/title_activity_shop_customer_points" >
+        </activity>
+        <activity
+            android:name="com.iseed.crm.android.shop.ShopReportActivity"
+            android:label="@string/title_activity_shop_report" >
         </activity>
     </application>
 

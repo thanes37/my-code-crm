@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iseed.crm.android.R;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.jwetherell.quick_response_code.data.Contents;
@@ -75,6 +76,18 @@ public final class EncoderActivity extends Activity {
             }
         });
     }
+    
+    @Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+	}
     
     public void genQRCode(String data){
         

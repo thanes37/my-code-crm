@@ -2,6 +2,7 @@ package com.iseed.crm.android.shop;
 
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.R.id;
 import com.iseed.crm.android.R.layout;
@@ -51,6 +52,18 @@ public class CustomerListActivity extends ListActivity {
 					R.string.msg_no_network_function, 
 					Toast.LENGTH_LONG).show();
 		}
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);  // Add this method.
 	}
 
 	@Override

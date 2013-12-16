@@ -5,6 +5,7 @@
  * */
 package com.iseed.crm.android.login;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.common.ConnectServer;
 import com.iseed.crm.android.common.Constant;
@@ -91,6 +92,18 @@ public class RegisterActivity extends Activity {
 				finish();
 			}
 		});
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);  // Add this method.
 	}
 	
 	/**

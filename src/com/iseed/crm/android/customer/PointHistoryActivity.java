@@ -3,6 +3,7 @@ package com.iseed.crm.android.customer;
 import java.util.HashMap;
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.adapter.PointListAdapter;
 import com.iseed.crm.android.adapter.PointParent;
@@ -41,6 +42,18 @@ public class PointHistoryActivity extends ExpandableListActivity {
 		registerForContextMenu(getExpandableListView());
 		
 		new GetPointHistoryTask().execute();
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);  // Add this method.
 	}
 
 	private void loadHosts(final List<PointParent> newParents)

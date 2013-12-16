@@ -1,5 +1,6 @@
 package com.iseed.crm.android.shop;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.common.ConnectServer;
 import com.iseed.crm.android.common.Constant;
@@ -95,6 +96,18 @@ public class CustomerInfoActivity extends Activity {
         updateRelationPan();
         
     }
+    
+    @Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -205,7 +218,7 @@ public class CustomerInfoActivity extends Activity {
         }
         
         protected Integer doInBackground(String... uid) {
-            Integer result = (Integer) connect.addInvolvement(uid[0]);
+            Integer result = (Integer) connect.addMyCustomer(uid[0]);
             return result;
         }
 

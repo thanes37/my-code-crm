@@ -2,6 +2,7 @@ package com.iseed.crm.android.gymclub;
 
 import java.util.Locale;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.ScanActivity;
 import com.iseed.crm.android.R.id;
@@ -101,6 +102,18 @@ public class GymMainActivity extends FragmentActivity implements
 					R.string.msg_no_network_common, 
 					Toast.LENGTH_LONG).show();
 		}
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);  // Add this method.
 	}
 
 	@Override

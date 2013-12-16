@@ -33,6 +33,8 @@ public class Constant {
     public static final int SCAN_FOR_CUSTOMER_UID = 102;
     public static final int SCAN_FOR_SHOP_UID = 103;
     public static final int SCAN_FOR__UID = 104;
+    
+    public static final int DEFAULT_DAY_BACK = 30;
 	
     
 }
