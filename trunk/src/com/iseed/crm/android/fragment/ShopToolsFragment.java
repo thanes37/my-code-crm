@@ -1,8 +1,11 @@
 package com.iseed.crm.android.fragment;
 
 import com.iseed.crm.android.R;
+import com.iseed.crm.android.common.Constant;
+import com.iseed.crm.android.shop.ShopReportActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -23,12 +26,12 @@ public class ShopToolsFragment extends ListFragment{
 		
 		context = getActivity();
 		String[] tools = {
-				context.getString(R.string.shop_tool_contact),
+				//context.getString(R.string.shop_tool_contact),
 				context.getString(R.string.shop_tool_report),
-				context.getString(R.string.shop_tool_product),
-				context.getString(R.string.shop_tool_sale_order),
-				context.getString(R.string.shop_tool_purchase_order),
-				context.getString(R.string.shop_tool_financial)
+				//context.getString(R.string.shop_tool_product),
+				//context.getString(R.string.shop_tool_sale_order),
+				//context.getString(R.string.shop_tool_purchase_order),
+				//context.getString(R.string.shop_tool_financial)
 		};
 		
 		ListAdapter myListAdapter = new ArrayAdapter<String>(
@@ -46,10 +49,26 @@ public class ShopToolsFragment extends ListFragment{
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		Toast.makeText(
-				context, 
-				getListView().getItemAtPosition(position).toString(), 
-				Toast.LENGTH_LONG).show();
+		
+		switch (position){
+			case 0:
+				Intent intent = new Intent(context, ShopReportActivity.class);
+                startActivity(intent);
+				break;
+			case 1:
+				
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			default:
+					
+		}
 	}
 
 }
