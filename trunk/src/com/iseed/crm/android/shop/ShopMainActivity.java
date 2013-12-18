@@ -3,6 +3,7 @@ package com.iseed.crm.android.shop;
 import java.util.Locale;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.iseed.crm.android.FeedbackActivity;
 import com.iseed.crm.android.R;
 import com.iseed.crm.android.ScanActivity;
 import com.iseed.crm.android.adapter.ShopPagerAdapter;
@@ -153,6 +154,10 @@ public class ShopMainActivity extends FragmentActivity implements
             startActivity(loginIntent);
             finish();
             return true;
+        case R.id.menu_feedback:
+			Intent feedback = new Intent(this, FeedbackActivity.class);
+			startActivity(feedback);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

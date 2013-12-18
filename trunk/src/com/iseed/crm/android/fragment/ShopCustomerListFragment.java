@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ShopCustomerListFragment extends ListFragment {
@@ -29,6 +30,7 @@ public class ShopCustomerListFragment extends ListFragment {
 	public static final String TAG = "CustomerListFragment";
 
 	private ProgressBar progressBar;
+	private TextView txtStateCustomers;
 
 	private List<CustomerInvolve> customerList;
 	private Context context;
@@ -46,6 +48,8 @@ public class ShopCustomerListFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_shop_customer_list, container, false);
         
         progressBar = (ProgressBar) rootView.findViewById(R.id.prgbCustomerList);
+        txtStateCustomers = (TextView) rootView.findViewById(R.id.txtStateCustomers);
+        txtStateCustomers.setVisibility(View.GONE);
         progressBar.setVisibility(View.INVISIBLE);
         
         if (isOnline()){
@@ -107,6 +111,11 @@ public class ShopCustomerListFragment extends ListFragment {
 			if (result == Constant.SUCCESS){
 				// Adding ArrayList data to ExpandableListView values
 				loadHosts(customerList);
+				if (customerList.isEmpty()){
+					txtStateCustomers.setText(context.getResources().getString(R.string.txt_state_customers_none));
+				} else {
+					
+				}
 			} else {
 				// Error: Create toast for user
 				CharSequence text = context.getResources().getString(R.string.msg_customer_list_fail);

@@ -70,17 +70,24 @@
     <string name="menu_login">Đăng nhập</string>
     <string name="menu_logout">Đăng xuất</string>
     <string name="menu_add_point">Thêm</string>
+    <string name="menu_feedback">Góp ý</string>
     <string name="txt_add_invol">Thêm khách hàng</string>
     <string name="txt_remove_invol">Xóa khách hàng</string>
     <string name="txt_add_point_type">Kiểu: bán hàng</string>
     <string name="txt_add_point_detail">Chi tiết</string>
     <string name="txt_add_point">Số điểm</string>
     <string name="txt_add_point_detail_hint">Chi tiết giao dịch</string>
+    <string name="txt_state_ads_none">Chưa có tin tức mới</string>
+    <string name="txt_state_history_none">Chưa có giao dịch</string>
+    <string name="txt_state_customers_none">Chưa có khách hàng</string>
+    <string name="txt_state_points_none">Chưa có điểm</string>
+    <string name="txt_function_onprogress">Chức năng đang xây dựng</string>
     <string name="login_login">Đăng nhập</string>
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
     <string name="btn_login">Đăng nhập</string>
     <string name="btn_register_me">Đăng ký</string>
+    <string name="btn_register_shop">Đăng ký cửa hàng</string>
     <string name="btn_register">Đăng ký</string>
     <string name="btn_log_me_in">Đăng nhập</string>
     <string name="btn_add_point">Cộng điểm</string>
@@ -98,7 +105,8 @@
     <string name="reg_password_confirm">Xác nhận password</string>
     <!-- <string name="url_base">http://192.168.202.1:80/</string> -->
     <!-- <string name="url_base">http://192.168.11.9:80/</string> -->
-    <string name="url_base">http://10.0.2.2:80/</string>
+    <!-- <string name="url_base">http://10.0.2.2:80/</string> -->
+    <string name="url_base">http://crm.gymviet.com/</string>
     <string name="url_login">customer-app/login</string>
     <string name="url_register">customer-app/register</string>
     <string name="url_get_customer_infor">customer-app/getuserinfo</string>
@@ -160,5 +168,7 @@
     <string name="title_report_section1">Khách hàng</string>
     <string name="title_report_section2">Kh/hàng mới</string>
     <string name="title_report_section3">Điểm</string>
+    <string name="title_activity_register_shop">Đăng ký cửa hàng</string>
+    <string name="title_activity_feedback">Phản hồi góp ý</string>
 
 </resources>

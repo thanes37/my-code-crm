@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iseed.crm.android.R;
@@ -28,6 +29,7 @@ import com.iseed.crm.android.customer.PointHistoryActivity;
 public class CustomerHistoryFragment extends Fragment{
 	
 	private ProgressBar progressBar;
+	private TextView txtStateHistory;
 	private Context context;
 	
 	PointListAdapter listAdapter;
@@ -44,6 +46,9 @@ public class CustomerHistoryFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.fragment_customer_history, container, false);
         
         progressBar = (ProgressBar) rootView.findViewById(R.id.prgbPointHistory);
+        progressBar.setVisibility(View.GONE);
+        txtStateHistory = (TextView) rootView.findViewById(R.id.txtStateHistory);
+        txtStateHistory.setVisibility(View.GONE);
         expListView = (ExpandableListView) rootView.findViewById(R.id.expCustomerHistory);
         
         if (isOnline()){
@@ -126,14 +131,23 @@ public class CustomerHistoryFragment extends Fragment{
 	            // Adding ArrayList data to ExpandableListView values
 	    		loadHosts(parents);
 	    		
-	    		// Then expand all the list
-	    		// Check for ExpandableListAdapter object
-	    		if (listAdapter != null)
-	    		{
-	    			int count = listAdapter.getGroupCount();
-	    			for (int position = 1; position <= count; position++)
-	    				expListView.expandGroup(position -1);
+	    		if (parents.isEmpty()){
+	    			txtStateHistory.setText(context.getResources().getString(R.string.txt_state_history_none));
+	    		} else {
+	    			
 	    		}
+	    		
+//	    		// Then expand all the list
+//	    		// Check for ExpandableListAdapter object
+//	    		if (listAdapter != null)
+//	    		{
+//	    			txtStateHistory.setVisibility(View.GONE);
+//	    			int count = listAdapter.getGroupCount();
+//	    			for (int position = 1; position <= count; position++)
+//	    				expListView.expandGroup(position -1);
+//	    		} else {
+//	    			txtStateHistory.setText(context.getResources().getString(R.string.txt_state_history_none));
+//	    		}
             } else {
             	// Error: Create toast for user
                 CharSequence text = context.getResources().getString(R.string.msg_point_history_failed);
