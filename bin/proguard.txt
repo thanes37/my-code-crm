@@ -1,0 +1,73 @@
+# view res/layout/activity_customer_main.xml #generated:1
+# view res/layout/activity_gym_main.xml #generated:1
+# view res/layout/activity_shop_main.xml #generated:1
+# view res/layout/activity_shop_report.xml #generated:1
+-keep class android.support.v4.view.ViewPager { <init>(...); }
+
+# view AndroidManifest.xml #generated:135
+-keep class com.iseed.crm.android.FeedbackActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:50
+-keep class com.iseed.crm.android.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:83
+-keep class com.iseed.crm.android.ScanActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:113
+-keep class com.iseed.crm.android.ScanForResultActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:123
+-keep class com.iseed.crm.android.ShopCustomerPointsActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:101
+-keep class com.iseed.crm.android.customer.CustomerMainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:93
+-keep class com.iseed.crm.android.customer.PointHistoryActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:71
+-keep class com.iseed.crm.android.customer.ShopInfoActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:109
+-keep class com.iseed.crm.android.gymclub.GymMainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:61
+-keep class com.iseed.crm.android.login.LoginActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:67
+-keep class com.iseed.crm.android.login.RegisterActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:131
+-keep class com.iseed.crm.android.login.RegisterShopActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:46
+-keep class com.iseed.crm.android.qrcode.EncoderActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:79
+-keep class com.iseed.crm.android.shop.AddCustomerPointActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:75
+-keep class com.iseed.crm.android.shop.CustomerInfoActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:97
+-keep class com.iseed.crm.android.shop.CustomerListActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:105
+-keep class com.iseed.crm.android.shop.ShopMainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:127
+-keep class com.iseed.crm.android.shop.ShopReportActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:30
+-keep class com.jwetherell.quick_response_code.CaptureActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:42
+-keep class com.jwetherell.quick_response_code.DecoderActivity { <init>(...); }
+
+# view res/layout/capture.xml #generated:26
+# view res/layout/decoder.xml #generated:26
+-keep class com.jwetherell.quick_response_code.ViewfinderView { <init>(...); }
+
+# onClick res/layout/activity_customer_info.xml #generated:31
+-keepclassmembers class * { *** onToggleClicked(...); }
+

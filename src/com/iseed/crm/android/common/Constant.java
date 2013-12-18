@@ -16,8 +16,8 @@ public class Constant {
     public static final String ROLE_SHOP = "shop";
     public static final String ROLE_CLUB = "club";
     
-    public static final int TIME_OUT_CONNECTION = 10000;
-    public static final int TIME_OUT_SOCKET = 10000;
+    public static final int TIME_OUT_CONNECTION = 15000;
+    public static final int TIME_OUT_SOCKET = 15000;
     
     public static final int SUCCESS = 0;
     public static final int REQUEST_LOGIN = 1;

@@ -7,6 +7,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_launcher_web" />
 
     <TextView
         android:id="@+id/textView1"
@@ -23,24 +30,9 @@
 
     <!-- Link to Registration Screen -->
 
-    <Button
-        android:id="@+id/btnMainRegister"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:background="@null"
-        android:layout_below="@+id/btnMainLogin"
-        android:text="@string/btn_register_me"
-        android:textColor="#0099CC"
-        android:textStyle="bold" />
+    
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_alignTop="@+id/btnTest"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_launcher_web" />
+    
 
 <!--     <Button -->
 <!--         android:id="@+id/btnTest" -->
@@ -59,6 +51,28 @@
         android:layout_marginTop="64dp"
         android:background="@null"
         android:text="@string/btn_log_me_in"
+        android:textColor="#0099CC"
+        android:textStyle="bold" />
+    
+    <Button
+        android:id="@+id/btnMainRegister"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:background="@null"
+        android:layout_below="@+id/btnMainLogin"
+        android:text="@string/btn_register_me"
+        android:textColor="#0099CC"
+        android:textStyle="bold" />
+    
+    <Button
+        android:id="@+id/btnMainRegisterShop"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:background="@null"
+        android:layout_below="@+id/btnMainRegister"
+        android:text="@string/btn_register_shop"
         android:textColor="#0099CC"
         android:textStyle="bold" />
 

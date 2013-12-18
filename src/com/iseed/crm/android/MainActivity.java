@@ -13,16 +13,16 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 import com.iseed.crm.android.common.Constant;
 import com.iseed.crm.android.customer.CustomerMainActivity;
 import com.iseed.crm.android.gymclub.GymMainActivity;
 import com.iseed.crm.android.login.LoginActivity;
 import com.iseed.crm.android.login.RegisterActivity;
+import com.iseed.crm.android.login.RegisterShopActivity;
 import com.iseed.crm.android.login.UserFunctions;
 import com.iseed.crm.android.qrcode.EncoderActivity;
-import com.iseed.crm.android.shop.CustomerInfoActivity;
 import com.iseed.crm.android.shop.ShopMainActivity;
-import com.iseed.crm.android.shop.ShopReportActivity;
 import com.jwetherell.quick_response_code.CaptureActivity;
 
 public class MainActivity extends Activity implements OnClickListener{
@@ -31,6 +31,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	String role;
 	public static Button btnLogin;
 	public static Button btnRegister;
+	public static Button btnRegisterShop;
 	public static Button btnTest;
 
 	@Override
@@ -42,12 +43,14 @@ public class MainActivity extends Activity implements OnClickListener{
 		btnLogin.setOnClickListener(this);
 		btnRegister = (Button) findViewById(R.id.btnMainRegister);
 		btnRegister.setOnClickListener(this);
+		btnRegisterShop = (Button) findViewById(R.id.btnMainRegisterShop);
+		btnRegisterShop.setOnClickListener(this);
 //		btnTest = (Button) findViewById(R.id.btnTest);
 //		btnTest.setOnClickListener(this);
 
 		Log.v(TAG, "Welcome screen");
 
-		// XXX : Delay 2 second
+		// XXX : Delay 0.5 second
 		new Handler().postDelayed(new Runnable() {
 
 			/*
@@ -66,6 +69,12 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onStart() {
 		super.onStart();
 		EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		
 	}
 
 	@Override
@@ -93,6 +102,10 @@ public class MainActivity extends Activity implements OnClickListener{
 			Intent encodeIntent = new Intent(this, EncoderActivity.class);
 			startActivity(encodeIntent);
 			return true;
+		case R.id.menu_feedback:
+			Intent feedback = new Intent(this, FeedbackActivity.class);
+			startActivity(feedback);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -101,14 +114,36 @@ public class MainActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		Intent intent;
+		EasyTracker easyTracker = EasyTracker.getInstance(this);
 		switch (v.getId()){
 		case R.id.btnMainLogin:
 			intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
+			
+			// Track this button
+			easyTracker.send(MapBuilder
+					.createEvent("ui_action", "button_press", "login_button", null)
+					.build());
+						
 			break;
 		case R.id.btnMainRegister:
 			intent = new Intent(this, RegisterActivity.class);
 			startActivity(intent);
+			
+			// Track this button
+			easyTracker.send(MapBuilder
+					.createEvent("ui_action", "button_press", "register_button", null)
+					.build());
+			break;
+		case R.id.btnMainRegisterShop:
+			intent = new Intent(this, RegisterShopActivity.class);
+			startActivity(intent);
+			
+			// Track this button
+			easyTracker.send(MapBuilder
+					.createEvent("ui_action", "button_press", "register_shop_button", null)
+					.build());
+			
 			break;
 			// XXX : Button for testing only
 //		case R.id.btnTest:
